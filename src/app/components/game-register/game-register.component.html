@@ -1,0 +1,69 @@
+
+<p>{{game.releaseDate}}</p>
+<div class="submit-form">
+  <div *ngIf="!submitted">
+    <div class="form-group">
+      <label for="title">Title</label>
+      <input
+        type="text"
+        class="form-control"
+        id="title"
+        required
+        [(ngModel)]="game.title"
+        name="title"
+      />
+    </div>
+
+    <div class="form-group">
+      <label for="description">Description</label>
+      <input
+        class="form-control"
+        id="description"
+        required
+        [(ngModel)]="game.description"
+        name="description"
+      />
+    </div>
+
+<!--    <div class="form-group">-->
+<!--      <label for="language">Język</label>-->
+<!--      <select class="form-control" id="language" required [(ngModel)]="game.language" name="language">-->
+<!--        <option *ngFor="let lang of languages" [value]="lang">{{lang}}</option>-->
+<!--      </select>-->
+<!--    </div>-->
+
+    <ng-multiselect-dropdown
+      [placeholder]="'Języki'"
+      [data]="languagesList"
+      [(ngModel)]="game.languages"
+      [settings]="dropdownSettings"
+    >
+    </ng-multiselect-dropdown>
+
+    <ng-multiselect-dropdown
+      [placeholder]="'Kategorie'"
+      [data]="categoryList"
+      [(ngModel)]="game.categories"
+      [settings]="dropdownSettings"
+    >
+    </ng-multiselect-dropdown>
+
+
+    <div class="form-group">
+      <div class="input-group">
+        <input class="form-control" placeholder="yyyy-MM-dd"
+               name="dp" [(ngModel)]="game.releaseDate" ngbDatepicker #d="ngbDatepicker">
+        <div class="input-group-append">
+          <button class="btn btn-outline-secondary calendar" (click)="d.toggle()" type="button"></button>
+        </div>
+      </div>
+    </div>
+
+    <button (click)="saveGame()" class="btn btn-success">Submit</button>
+  </div>
+
+  <div *ngIf="submitted">
+    <h4>You submitted successfully!</h4>
+    <button class="btn btn-success" (click)="newGame()">Add</button>
+  </div>
+</div>
